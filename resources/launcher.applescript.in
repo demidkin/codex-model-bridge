@@ -1,0 +1,17 @@
+on run
+    try
+        set checkMode to system attribute "CODEX_BRIDGE_LAUNCHER_CHECK"
+        if checkMode is equal to "1" then
+            do shell script __CHECK_COMMAND__
+        else
+            do shell script __LAUNCH_COMMAND__
+        end if
+    on error errorMessage number errorNumber
+        activate
+        if errorNumber is 2 then
+            display alert "Codex уже открыт" message errorMessage buttons {"Понятно"} default button "Понятно" as informational
+        else
+            display alert "Не удалось запустить Codex Bridge" message errorMessage buttons {"Понятно"} default button "Понятно" as warning
+        end if
+    end try
+end run

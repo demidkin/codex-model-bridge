@@ -1,0 +1,24 @@
+__pycache__/
+*.pyc
+.DS_Store
+.runtime/
+*.key
+*.sqlite*
+bridge.local.toml
+
+# generated locally by `python3 -m bridge.install` / `bridge.install_app`,
+# contain absolute paths of this machine's install
+bin/*.app/
+bin/codex-bridge
+bin/*.command
+
+# generic secrets safety net
+*.env
+.env.*
+*local*.toml
+*local*.json
+*secret*
+*.pem
+*.pfx
+id_rsa*
+credentials*

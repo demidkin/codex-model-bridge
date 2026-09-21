@@ -1,0 +1,7 @@
+[bridge]
+# Original, unmodified executable bundled with the desktop app.
+core = "/Applications/ChatGPT.app/Contents/Resources/codex"
+# Opt in after configuring authentication, then verify the desktop model menu.
+enable_deepseek = false
+enable_claude = false
+# Defaults: .runtime/ next to this file; ~/.codex/deepseek.key (0600).

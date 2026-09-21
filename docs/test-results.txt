@@ -1,0 +1,90 @@
+test_bad_model_effort_and_unauthorized_options_never_dispatch (test_agents.AgentTests.test_bad_model_effort_and_unauthorized_options_never_dispatch) ... ok
+test_cancel_during_child_creation_prevents_inference (test_agents.AgentTests.test_cancel_during_child_creation_prevents_inference) ... ok
+test_cancel_during_dispatch_interrupts_after_ack (test_agents.AgentTests.test_cancel_during_dispatch_interrupts_after_ack) ... ok
+test_cancelled_parent_tool_cannot_spawn_late (test_agents.AgentTests.test_cancelled_parent_tool_cannot_spawn_late) ... ok
+test_child_cannot_be_dispatched_independently_from_second_ui (test_agents.AgentTests.test_child_cannot_be_dispatched_independently_from_second_ui) ... ok
+test_claude_mcp_uses_same_inheritance_and_ownership (test_agents.AgentTests.test_claude_mcp_uses_same_inheritance_and_ownership) ... ok
+test_completion_before_turn_ack_is_not_overwritten (test_agents.AgentTests.test_completion_before_turn_ack_is_not_overwritten) ... ok
+test_deepseek_parent_default_and_claude_parent_explicit_astra (test_agents.AgentTests.test_deepseek_parent_default_and_claude_parent_explicit_astra) ... ok
+test_default_inherits_actual_parent_not_global_preference (test_agents.AgentTests.test_default_inherits_actual_parent_not_global_preference) ... ok
+test_disabled_delegation_replies_to_old_persisted_tool (test_agents.AgentTests.test_disabled_delegation_replies_to_old_persisted_tool) ... ok
+test_each_explicit_engine_and_no_subscription_to_api_conversion (test_agents.AgentTests.test_each_explicit_engine_and_no_subscription_to_api_conversion) ... ok
+test_foreign_parent_cannot_wait_or_control_child (test_agents.AgentTests.test_foreign_parent_cannot_wait_or_control_child) ... ok
+test_inherited_write_roots_and_approval_policy_are_not_dropped (test_agents.AgentTests.test_inherited_write_roots_and_approval_policy_are_not_dropped) ... ok
+test_one_interrupt_preserves_sibling_parent_interrupt_cancels_rest (test_agents.AgentTests.test_one_interrupt_preserves_sibling_parent_interrupt_cancels_rest) ... ok
+test_recovery_does_not_interrupt_other_process_lease (test_agents.AgentTests.test_recovery_does_not_interrupt_other_process_lease) ... ok
+test_second_adapter_can_read_but_cannot_claim_active_child (test_agents.AgentTests.test_second_adapter_can_read_but_cannot_claim_active_child) ... ok
+test_tool_call_id_is_at_most_once (test_agents.AgentTests.test_tool_call_id_is_at_most_once) ... ok
+test_uncertain_dispatch_never_retries (test_agents.AgentTests.test_uncertain_dispatch_never_retries) ... ok
+test_wait_completion_followup_keeps_model_and_result (test_agents.AgentTests.test_wait_completion_followup_keeps_model_and_result) ... ok
+test_approval_has_to_match_own_id (test_claude.ClaudeTests.test_approval_has_to_match_own_id) ... ok
+test_list_merges_sorted_pages_and_keeps_filters (test_claude.ClaudeTests.test_list_merges_sorted_pages_and_keeps_filters) ... ok
+test_never_and_background_fail_closed (test_claude.ClaudeTests.test_never_and_background_fail_closed) ... ok
+test_streamed_text_is_not_duplicated (test_claude.ClaudeTests.test_streamed_text_is_not_duplicated) ... ok
+test_subscription_environment_removes_api_routes (test_claude.ClaudeTests.test_subscription_environment_removes_api_routes) ... ok
+test_unknown_method_cannot_reach_inference (test_claude.ClaudeTests.test_unknown_method_cannot_reach_inference) ... ok
+test_unsubscribe_does_not_stop_background_task (test_claude.ClaudeTests.test_unsubscribe_does_not_stop_background_task) ... ok
+test_ephemeral_switch_is_rejected_without_unsubscribe (test_routes.RouteTests.test_ephemeral_switch_is_rejected_without_unsubscribe)
+Do not destroy an ephemeral task that cannot be resumed from disk. ... ok
+test_external_effort_only_edit_preserves_openai_defaults (test_routes.RouteTests.test_external_effort_only_edit_preserves_openai_defaults) ... ok
+test_external_menu_cannot_rewrite_project_configuration (test_routes.RouteTests.test_external_menu_cannot_rewrite_project_configuration)
+Reject a project-file target instead of copying effective defaults into it. ... ok
+test_external_menu_observes_native_config_version (test_routes.RouteTests.test_external_menu_observes_native_config_version)
+A stale UI cannot silently overwrite a concurrently changed preference. ... ok
+test_external_menu_preference_preserves_native_config (test_routes.RouteTests.test_external_menu_preference_preserves_native_config)
+Keep DeepSeek menu choice in the adapter, preserving OpenAI's global model. ... ok
+test_first_turn_uses_collaboration_model_before_dispatch (test_routes.RouteTests.test_first_turn_uses_collaboration_model_before_dispatch)
+Move an empty task to DeepSeek before its first inference request. ... ok
+test_initial_deepseek_selection_can_return_to_openai_before_turn (test_routes.RouteTests.test_initial_deepseek_selection_can_return_to_openai_before_turn)
+Never leak the DeepSeek-only catalogue into an empty task switched to Astra. ... ok
+test_locked_engine_cannot_switch (test_routes.RouteTests.test_locked_engine_cannot_switch)
+Reject cross-engine continuation without sending an inference request. ... ok
+test_native_empty_thread_materialization_error_is_compatible (test_routes.RouteTests.test_native_empty_thread_materialization_error_is_compatible)
+Tolerate only the exact legacy-history error from the tested core build. ... ok
+test_openai_is_unchanged (test_routes.RouteTests.test_openai_is_unchanged)
+Preserve native model/provider defaults and unknown request fields. ... ok
+test_parallel_tasks_keep_separate_providers (test_routes.RouteTests.test_parallel_tasks_keep_separate_providers)
+Concurrent tasks cannot overwrite each other's persisted route. ... ok
+test_private_key_required_before_network_dispatch (test_routes.RouteTests.test_private_key_required_before_network_dispatch)
+Fail visibly when key permissions are wrong, without provider fallback. ... ok
+test_restart_retains_provider_despite_global_model (test_routes.RouteTests.test_restart_retains_provider_despite_global_model)
+Restore from SQLite with the saved API provider, ignoring stale UI defaults. ... ok
+test_resume_preserves_workspace_and_permissions (test_routes.RouteTests.test_resume_preserves_workspace_and_permissions) ... ok
+test_ui_catalog_bypasses_filter_without_native_override (test_routes.RouteTests.test_ui_catalog_bypasses_filter_without_native_override) ... ok
+test_uncertain_dispatch_does_not_unlock_or_retry (test_routes.RouteTests.test_uncertain_dispatch_does_not_unlock_or_retry)
+A transport failure after a turn was sent leaves its engine fixed. ... ok
+test_unfinished_history_is_not_replayed (test_routes.RouteTests.test_unfinished_history_is_not_replayed)
+Crash recovery changes status only and performs no engine calls. ... ok
+test_all_enabled_skills_are_discovered_without_disabling_user_policy (test_skills.SkillTests.test_all_enabled_skills_are_discovered_without_disabling_user_policy) ... ok
+test_changes_refresh_and_disable_removed_skill (test_skills.SkillTests.test_changes_refresh_and_disable_removed_skill) ... ok
+test_claude_mcp_reads_same_codex_skill (test_skills.SkillTests.test_claude_mcp_reads_same_codex_skill) ... ok
+test_codex_skill_inputs_are_supported_by_claude (test_skills.SkillTests.test_codex_skill_inputs_are_supported_by_claude) ... ok
+test_deepseek_catalogue_enables_native_skill_instructions (test_skills.SkillTests.test_deepseek_catalogue_enables_native_skill_instructions) ... ok
+test_external_start_and_resume_get_catalogue_and_usage_instructions (test_skills.SkillTests.test_external_start_and_resume_get_catalogue_and_usage_instructions) ... ok
+test_failed_image_artifact_is_not_returned (test_skills.SkillTests.test_failed_image_artifact_is_not_returned) ... ok
+test_host_dynamic_tools_and_capability_roots_survive_restart_and_inherit (test_skills.SkillTests.test_host_dynamic_tools_and_capability_roots_survive_restart_and_inherit) ... ok
+test_image_events_are_attached_to_selected_child (test_skills.SkillTests.test_image_events_are_attached_to_selected_child) ... ok
+test_imagegen_cancellation_stops_helper (test_skills.SkillTests.test_imagegen_cancellation_stops_helper) ... ok
+test_imagegen_requires_native_artifact_evidence_not_model_claim (test_skills.SkillTests.test_imagegen_requires_native_artifact_evidence_not_model_claim) ... ok
+test_imagegen_returns_only_observed_saved_artifact (test_skills.SkillTests.test_imagegen_returns_only_observed_saved_artifact) ... ok
+test_inherited_host_call_is_forwarded_unchanged (test_skills.SkillTests.test_inherited_host_call_is_forwarded_unchanged) ... ok
+test_legacy_resume_does_not_overwrite_unknown_native_instructions (test_skills.SkillTests.test_legacy_resume_does_not_overwrite_unknown_native_instructions) ... ok
+test_read_resources_and_block_traversal_symlink_escape (test_skills.SkillTests.test_read_resources_and_block_traversal_symlink_escape) ... ok
+test_resume_refreshes_catalogue_without_losing_caller_instructions (test_skills.SkillTests.test_resume_refreshes_catalogue_without_losing_caller_instructions) ... ok
+test_skill_absolute_path_alias_resolves_to_native_catalogue (test_skills.SkillTests.test_skill_absolute_path_alias_resolves_to_native_catalogue) ... ok
+test_version_three_upgrade_preserves_routes_agents_and_history (test_skills.SkillTests.test_version_three_upgrade_preserves_routes_agents_and_history) ... ok
+test_child_exit_releases_pending_request (test_transport.TransportTests.test_child_exit_releases_pending_request)
+Surface process death without hanging or replaying the request. ... ok
+test_close_reaps_child (test_transport.TransportTests.test_close_reaps_child)
+Closing the bridge also closes its child process. ... ok
+test_denial_reaches_native_approval_id (test_transport.TransportTests.test_denial_reaches_native_approval_id)
+Preserve server-initiated approval IDs and user decisions. ... ok
+test_large_unicode_payload_and_unknown_fields (test_transport.TransportTests.test_large_unicode_payload_and_unknown_fields)
+Pass content exceeding asyncio's default line limit without truncation. ... ok
+test_responses_out_of_order (test_transport.TransportTests.test_responses_out_of_order)
+Correlate concurrent requests independently of completion order. ... ok
+
+----------------------------------------------------------------------
+Ran 66 tests in 0.975s
+
+OK
