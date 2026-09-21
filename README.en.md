@@ -13,6 +13,33 @@ only replaces the executable the desktop app launches for the core process.
 verified by unit tests or a native simulator, not a live desktop session —
 see [docs/verification.md](docs/verification.md) for details and boundaries.
 
+## Architecture
+
+This is not a patch or a hack of the app: the adapter is a JSON-RPC router
+that stands in for the stock core-process executable and speaks the exact
+same protocol the desktop already uses (`thread/start`, `turn/start`, etc.).
+It only looks at the selected model to decide where to forward the request;
+it never leaks anything extra to a provider, and OAuth files and the
+ChatGPT/Claude subscriptions never pass through the adapter's own code.
+
+```mermaid
+flowchart LR
+    UI["Codex Desktop App<br/>(models, tasks)"] -->|"JSON-RPC:<br/>thread/start, turn/start..."| Bridge["Codex Model Bridge<br/>(this router)"]
+
+    Bridge -->|"model: gpt-*"| Core["Native Codex core"]
+    Bridge -->|"model: deepseek-*"| DeepSeek["DeepSeek Responses API"]
+    Bridge -->|"model: claude-code/*"| Claude["Official Claude Code CLI"]
+
+    Core --> OpenAI[("ChatGPT<br/>subscription")]
+    DeepSeek --> DeepSeekAPI[("DeepSeek<br/>API key")]
+    Claude --> ClaudeSub[("Claude<br/>subscription")]
+```
+
+The desktop has no idea a different provider is behind the model — it just
+gets responses over the same protocol. Each provider only ever receives its
+own request and its own credentials; the adapter never mixes or extracts
+another provider's tokens.
+
 ## Features
 
 - **Model menu**: besides built-in OpenAI models, a new task shows
