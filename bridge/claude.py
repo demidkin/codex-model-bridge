@@ -572,7 +572,18 @@ class ClaudeEngine:
                 tool_id = request.get('tool_use_id') or str(uuid.uuid4())
                 item = await self.ensure_tool(state, tool_id, name, args)
                 allowed = False
-                full_access = (state['route']['options'].get('sandboxPolicy') or {}).get('type') == 'dangerFullAccess'
+                route_options = state['route']['options']
+                # Full access can be represented three different ways
+                # depending on how the task's policy reached us: a named
+                # permission profile, a plain sandbox string, or a full
+                # sandboxPolicy object. Checking only the last form left
+                # Claude re-gating Bash/Write/Edit behind a host approval
+                # prompt for tasks that were actually on danger-full-access.
+                full_access = (
+                    route_options.get('permissions') == ':danger-full-access'
+                    or route_options.get('sandbox') == 'danger-full-access'
+                    or (route_options.get('sandboxPolicy') or {}).get('type') == 'dangerFullAccess'
+                )
                 if name in ('Bash', 'Write', 'Edit') and full_access and not args.get('run_in_background'):
                     # Codex's own danger-full-access sandbox already grants unrestricted
                     # execution; Claude's tool calls must not be re-gated behind a host

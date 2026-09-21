@@ -54,6 +54,28 @@ class AgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual((a['model'],a['engine'],a['reasoning_effort']),('gpt-6-astra','openai','xhigh'))
         self.assertEqual(self.registry.get(a['id'])['options']['approvalPolicy'],'never')
         self.assertEqual(self.registry.get(a['id'])['options']['sandbox'],'read-only')
+    async def test_full_access_survives_into_child_without_explicit_parent_sandbox(self):
+        """A parent whose danger-full-access came only from the native
+        default (never passed explicitly as sandbox/sandboxPolicy/permissions
+        at thread/start) must still spawn a full-access child, not a silently
+        more restrictive read-only one."""
+        existing = self.core.call
+        async def call(method, params):
+            if method == 'thread/start' and 'threadId' not in params:
+                response = await existing(method, params)
+                response['sandbox'] = 'danger-full-access'
+                return response
+            return await existing(method, params)
+        self.core.call = call
+        try:
+            parent = (await self.router.request('thread/start', {'model': 'gpt-6-astra', 'cwd': str(self.root)}))['thread']['id']
+        finally:
+            self.core.call = existing
+        self.assertEqual(self.registry.get(parent)['options'].get('sandbox'), 'danger-full-access')
+        before = len(self.core.calls)
+        await self.manager.call(parent, 'spawn_agent', {'message': 'hi', 'model': 'deepseek-flash'})
+        started = next(p for m, p in self.core.calls[before:] if m == 'thread/start')
+        self.assertEqual(started.get('sandbox'), 'danger-full-access')
     async def test_each_explicit_engine_and_no_subscription_to_api_conversion(self):
         for model,engine,provider in [('deepseek-flash','deepseek','bridge_deepseek'),('claude-code/sonnet','claude','bridge_claude'),('gpt-6-astra','openai','openai')]:
             a = await self.spawn(model=model)

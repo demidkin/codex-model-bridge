@@ -186,8 +186,17 @@ class Router:
         for key in ('approvalPolicy', 'approvalsReviewer', 'runtimeWorkspaceRoots'):
             if response.get(key) is not None:
                 route['options'][key] = response[key]
-        if isinstance(response.get('sandbox'), dict):
-            route['options']['sandboxPolicy'] = response['sandbox']
+        # The response can echo the effective sandbox either as a plain
+        # top-level string (mirroring the request field) or as a full
+        # sandboxPolicy object; capture whichever shape is present so a
+        # child spawned from this route (see agents.py) can still see the
+        # parent's real policy even when the desktop never passed one
+        # explicitly (e.g. it just relied on the global default).
+        sandbox_response = response.get('sandbox')
+        if isinstance(sandbox_response, dict):
+            route['options']['sandboxPolicy'] = sandbox_response
+        elif isinstance(sandbox_response, str):
+            route['options']['sandbox'] = sandbox_response
         if response.get('reasoningEffort') is not None:
             route['options']['effort'] = response['reasoningEffort']
         self.registry.save(route)

@@ -245,8 +245,17 @@ class AgentManager:
                 # Only computed when no named permission profile is being forwarded: the
                 # native API rejects a request that combines `permissions` with `sandbox`.
                 policy = options.get('sandboxPolicy') or {}
-                params['sandbox'] = {'readOnly': 'read-only', 'workspaceWrite': 'workspace-write',
-                                     'dangerFullAccess': 'danger-full-access'}.get(policy.get('type'), options.get('sandbox') or 'read-only')
+                sandbox = {'readOnly': 'read-only', 'workspaceWrite': 'workspace-write',
+                           'dangerFullAccess': 'danger-full-access'}.get(policy.get('type')) or options.get('sandbox')
+                # Only force an explicit sandbox when the parent's policy is
+                # actually known. Defaulting to read-only here previously made
+                # a child silently more restrictive than its parent whenever
+                # the route had no captured sandbox/sandboxPolicy (e.g. a task
+                # started under the global default rather than an explicit
+                # per-task override) -- the child then hit real native
+                # approval prompts even though the user had full access set.
+                if sandbox:
+                    params['sandbox'] = sandbox
             params.update(cwd=route['cwd'], model=model, ephemeral=False, experimentalRawEvents=False,
                           modelProvider=PROVIDERS[self.router.catalog.engine(model)], allowProviderModelFallback=False,
                           config={'model_reasoning_effort': effort} if effort else {})
